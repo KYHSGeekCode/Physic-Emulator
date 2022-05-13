@@ -1,0 +1,42 @@
+# Project: Physics Emulator
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = Physics_Emulator_private.res
+OBJ  = main.o physics.o vector.o objects.o $(RES)
+LINKOBJ  = main.o physics.o vector.o objects.o $(RES)
+LIBS =  -L"G:/프로그램/tool/Dev-Cpp/lib" -L"lib" -L"G:/프로그램/tool/Dev-Cpp" -mwindows  -fmessage-length=0 
+INCS =  -I"include" 
+CXXINCS =  -I"lib/gcc/mingw32/3.4.2/include"  -I"include/c++/3.4.2/backward"  -I"include/c++/3.4.2/mingw32"  -I"include/c++/3.4.2"  -I"include" 
+BIN  = "Physics Emulator.exe"
+CXXFLAGS = $(CXXINCS)   -fexpensive-optimizations -fmessage-length=0
+CFLAGS = $(INCS)   -fexpensive-optimizations -fmessage-length=0
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before "Physics Emulator.exe" all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "Physics Emulator.exe" $(LIBS)
+
+main.o: main.c physics.h
+	$(CC) -c main.c -o main.o $(CFLAGS)
+
+physics.o: physics.c physics.h
+	$(CC) -c physics.c -o physics.o $(CFLAGS)
+
+vector.o: vector.c physics.h
+	$(CC) -c vector.c -o vector.o $(CFLAGS)
+
+objects.o: objects.c physics.h
+	$(CC) -c objects.c -o objects.o $(CFLAGS)
+
+Physics_Emulator_private.res: Physics_Emulator_private.rc 
+	$(WINDRES) -i Physics_Emulator_private.rc --input-format=rc -o Physics_Emulator_private.res -O coff 
